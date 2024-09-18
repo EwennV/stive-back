@@ -1,0 +1,6 @@
+@StiveBack_HostAddress = http://localhost:5002
+
+GET {{StiveBack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
