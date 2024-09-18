@@ -2,9 +2,9 @@
 
 namespace StiveBack.Models
 {
-    public class Role : Entity
+    public class Category : Entity
     {
         public string Name { get; set; }
-        public Role() { }
+        public Category() { }
     }
 }
