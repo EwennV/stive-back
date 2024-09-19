@@ -4524,23 +4524,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\barthelemy\\.nuget\\packages\\": {},
+    "C:\\Users\\Don_F\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\barthelemy\\Source\\Repos\\stive-back\\StiveBack\\StiveBack.csproj",
+      "projectUniqueName": "C:\\Users\\Don_F\\OneDrive\\Documents\\CESI Bordeaux\\Cours\\Bloc 4 - Stive-Back\\StiveBack\\StiveBack.csproj",
       "projectName": "StiveBack",
-      "projectPath": "C:\\Users\\barthelemy\\Source\\Repos\\stive-back\\StiveBack\\StiveBack.csproj",
-      "packagesPath": "C:\\Users\\barthelemy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\barthelemy\\Source\\Repos\\stive-back\\StiveBack\\obj\\",
+      "projectPath": "C:\\Users\\Don_F\\OneDrive\\Documents\\CESI Bordeaux\\Cours\\Bloc 4 - Stive-Back\\StiveBack\\StiveBack.csproj",
+      "packagesPath": "C:\\Users\\Don_F\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Don_F\\OneDrive\\Documents\\CESI Bordeaux\\Cours\\Bloc 4 - Stive-Back\\StiveBack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\barthelemy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Don_F\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4620,5 +4620,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problème de lecture du fichier cache C:\\Users\\Don_F\\OneDrive\\Documents\\CESI Bordeaux\\Cours\\Bloc 4 - Stive-Back\\StiveBack\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

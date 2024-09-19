@@ -1,9 +1,8 @@
-﻿using StiveBack.Models.Core;
+﻿using StiveBack.Ressources.Core;
 
-
-namespace StiveBack.Models
+namespace StiveBack.Ressources
 {
-    public class Supplier: Entity
+    public class SupplierRessource: EntityRessource
     {
         public string Name { get; set; }
         public string Siret { get; set; }
@@ -11,12 +10,7 @@ namespace StiveBack.Models
         public string? Address2 { get; set; }
         public string? PostalCode { get; set; }
         public string? City { get; set; }
-        public List<Product> Product { get; set; }
 
-        public Supplier()
-        {
-            Product = new List<Product>();
-        }
+        public SupplierRessource() { }
     }
-
 }

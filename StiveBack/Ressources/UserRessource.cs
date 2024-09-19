@@ -12,5 +12,9 @@ namespace StiveBack.Ressources
         {
             Roles = new List<RoleRessource>();
         }
+        public UserRessource(List<RoleRessource> roles)
+        {
+            Roles = roles;
+        }
     }
 }

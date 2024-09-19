@@ -2,9 +2,15 @@
 
 namespace StiveBack.Models
 {
+
     public class Role : Entity
-    {
+    { 
         public string Name { get; set; }
-        public Role() { }
+        public List<UserRole> UserRole { get; set; }
+
+        public Role()
+        {
+            UserRole = new List<UserRole>();
+        }
     }
 }
