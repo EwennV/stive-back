@@ -16,7 +16,7 @@ namespace StiveBack.Ressources
         public float PurchasePrice { get; set; }
         public float PurchaseTva { get; set; }
         public string House { get; set; }
-        public string Photo { get; set; }
+        public string ImageName { get; set; }
         public bool AutoProvisioning { get; set; }
         public List<int> ProductCategories { get; set; }
         public List<int> OrderProducts { get; set; }
