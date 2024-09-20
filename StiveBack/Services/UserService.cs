@@ -21,20 +21,32 @@ namespace StiveBack.Services
             _passwordHasher = new PasswordHasher<User>();
         }
 
-        public List<UserRessource> GetAll()
+
+        /// <summary>
+        /// Récupère tous les utilisateurs
+        /// </summary>
+        public List<UserRessource> SelectAll()
         {
-            return _database.users.ToArray().Select(user => UserToUserRessource(user)).ToList();
+            return _database.users.ToList().Select(user => UserToUserRessource(user)).ToList();
         }
 
-        public UserRessource Get(int id)
+        /// <summary>
+        /// Récupère un utilisateur par son id
+        /// </summary>
+        /// <param name="id"></param>
+        public UserRessource Select(int id)
         {
-            var user = _database.users.FirstOrDefault(user => user.Id == id);
+            User user = _database.users.FirstOrDefault(user => user.Id == id);
             return UserToUserRessource(user);
         }
 
+        /// <summary>
+        /// Ajoute un utilisateur
+        /// </summary>
+        /// <param name="userSaveRessource"></param>
         public UserRessource Add(UserSaveRessource userSaveRessource)
         {
-            var user = UserSaveRessourceToUser(userSaveRessource);
+            User user = UserSaveRessourceToUser(userSaveRessource);
 
             _database.users.Add(user);
             _database.SaveChanges();
@@ -42,9 +54,14 @@ namespace StiveBack.Services
             return UserToUserRessource(user);
         }
 
+        /// <summary>
+        /// Met à jour un utilisateur
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userSaveRessource"></param>
         public UserRessource Update(int id, UserSaveRessource userSaveRessource)
         {
-            var user = _database.users.FirstOrDefault(user => user.Id == id);
+            User user = _database.users.FirstOrDefault(user => user.Id == id);
 
             user.FirstName = userSaveRessource.FirstName;
             user.LastName = userSaveRessource.LastName;
@@ -64,9 +81,13 @@ namespace StiveBack.Services
             return UserToUserRessource(user);
         }
 
+        /// <summary>
+        /// Supprime un utilisateur par son id
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(int id)
         {
-            var user = _database.users.FirstOrDefault(user => user.Id == id);
+            User user = _database.users.FirstOrDefault(user => user.Id == id);
 
             _database.users.Remove(user);
             _database.SaveChanges();
@@ -74,7 +95,7 @@ namespace StiveBack.Services
 
         public User UserSaveRessourceToUser(UserSaveRessource userSaveRessource)
         {
-            var user = new User
+            User user = new User
             {
                 FirstName = userSaveRessource.FirstName,
                 LastName = userSaveRessource.LastName,
@@ -96,7 +117,7 @@ namespace StiveBack.Services
 
         public UserRessource UserToUserRessource(User user)
         {
-            var userRessource = new UserRessource
+            UserRessource userRessource = new UserRessource
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
