@@ -72,7 +72,7 @@ namespace StiveBack.Services
             _database.SaveChanges();
         }
 
-        private User UserSaveRessourceToUser(UserSaveRessource userSaveRessource)
+        public User UserSaveRessourceToUser(UserSaveRessource userSaveRessource)
         {
             var user = new User
             {
@@ -94,7 +94,7 @@ namespace StiveBack.Services
             return user;
         }
 
-        private UserRessource UserToUserRessource(User user)
+        public UserRessource UserToUserRessource(User user)
         {
             var userRessource = new UserRessource
             {
