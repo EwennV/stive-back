@@ -64,6 +64,14 @@ namespace StiveBack.Services
             return UserToUserRessource(user);
         }
 
+        public void Delete(int id)
+        {
+            var user = _database.users.FirstOrDefault(user => user.Id == id);
+
+            _database.users.Remove(user);
+            _database.SaveChanges();
+        }
+
         private User UserSaveRessourceToUser(UserSaveRessource userSaveRessource)
         {
             var user = new User
