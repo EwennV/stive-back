@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StiveBack.Database;
+using StiveBack.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<MainDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
 });
+
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
