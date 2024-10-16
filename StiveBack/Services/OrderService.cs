@@ -7,14 +7,16 @@ namespace StiveBack.Services
     public class OrderService
     {
         private MainDbContext _database;
+        private readonly UserService _userService;
 
         public OrderService()
         {
         }
 
-        public OrderService(MainDbContext mainDbContext)
+        public OrderService(MainDbContext mainDbContext, UserService userService)
         {
             _database = mainDbContext;
+            _userService = userService;
         }
 
         public OrderRessource Add(OrderRessource orderRessource)
@@ -62,7 +64,7 @@ namespace StiveBack.Services
             {
                 Date = order.Date,
                 UserId = order.UserId,
-                UserRessource = UserToUserRessource(order.User)
+                UserRessource = _userService.UserToUserRessource(order.User)
             };
 
             return orderRessource;
