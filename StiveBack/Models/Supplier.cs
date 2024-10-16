@@ -11,7 +11,7 @@ namespace StiveBack.Models
         public string? Address2 { get; set; }
         public string? PostalCode { get; set; }
         public string? City { get; set; }
-        public List<Product> Product { get; set; }
+        public List<Product>? Product { get; set; }
 
         public Supplier()
         {

@@ -7,16 +7,13 @@ namespace StiveBack.Ressources
         public string Name { get; set; }
         public int? CategoryRessourceParentId { get; set; }
         public CategoryRessource? CategoryRessourceParent { get; set; }
-        public List<ProductRessource> ProductRessources { get; set; }
 
         public CategoryRessource()
         {
-            ProductRessources = new List<ProductRessource>();
         }
-        public CategoryRessource(CategoryRessource? categoryRessource, List<ProductRessource> productRessources)
+        public CategoryRessource(CategoryRessource? categoryRessource)
         {
             CategoryRessourceParent = categoryRessource;
-            ProductRessources = productRessources;
         }
     }
 }
