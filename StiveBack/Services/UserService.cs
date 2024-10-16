@@ -37,6 +37,12 @@ namespace StiveBack.Services
         public UserRessource Select(int id)
         {
             User user = _database.users.FirstOrDefault(user => user.Id == id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
             return UserToUserRessource(user);
         }
 
@@ -59,22 +65,27 @@ namespace StiveBack.Services
         /// </summary>
         /// <param name="id"></param>
         /// <param name="userSaveRessource"></param>
-        public UserRessource Update(int id, UserSaveRessource userSaveRessource)
+        public UserRessource Update(int id, UserUpdateRessource userSaveRessource)
         {
-            User user = _database.users.FirstOrDefault(user => user.Id == id);
+            User? user = _database.users.FirstOrDefault(user => user.Id == id);
 
-            user.FirstName = userSaveRessource.FirstName;
-            user.LastName = userSaveRessource.LastName;
-            user.Email = userSaveRessource.Email;
-            user.Address1 = userSaveRessource.Address1;
-            user.Address2 = userSaveRessource.Address2;
-            user.PostalCode = userSaveRessource.PostalCode;
-            user.City = userSaveRessource.City;
-            user.Password = _passwordHasher.HashPassword(user, userSaveRessource.Password);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            user.FirstName = userSaveRessource.FirstName ?? user.FirstName;
+            user.LastName = userSaveRessource.LastName ?? user.LastName;
+            user.Email = userSaveRessource.Email ?? user.Email;
+            user.Address1 = userSaveRessource.Address1 ?? user.Address1;
+            user.Address2 = userSaveRessource.Address2 ?? user.Address2;
+            user.PostalCode = userSaveRessource.PostalCode ?? user.PostalCode;
+            user.City = userSaveRessource.City ?? user.City;
+            user.Password = userSaveRessource.Password != null ? _passwordHasher.HashPassword(user, userSaveRessource.Password) : user.Password;
             user.UserRole = userSaveRessource.RoleIds.Select(roleId => new UserRole
             {
                 RoleId = roleId
-            }).ToList();
+            }).ToList() ?? user.UserRole;
 
             _database.SaveChanges();
 
@@ -88,6 +99,11 @@ namespace StiveBack.Services
         public void Delete(int id)
         {
             User user = _database.users.FirstOrDefault(user => user.Id == id);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
 
             _database.users.Remove(user);
             _database.SaveChanges();
@@ -119,6 +135,7 @@ namespace StiveBack.Services
         {
             UserRessource userRessource = new UserRessource
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
