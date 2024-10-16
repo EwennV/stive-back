@@ -47,7 +47,7 @@ namespace StiveBack.Services
         /// <summary>
         /// Ajoute la catégorie à la base de données
         /// </summary>
-        /// <param name="categoryRessource"></param>
+        /// <param name="categoryRessource">Objet de type CategoryRessource à ajouter à la base de données</param>
         /// <returns>Objet CategoryRessource de la catégorie ajoutée en base de données</returns>
         public CategoryRessource Add(CategoryRessource categoryRessource)
         {
@@ -91,7 +91,7 @@ namespace StiveBack.Services
         /// <summary>
         /// Transforme un objet CategoryRessource en objet Category
         /// </summary>
-        /// <param name="categoryRessource"></param>
+        /// <param name="categoryRessource">Objet de typeCategoryRessource à trnasformer en objet de type Category</param>
         /// <returns>Objet Category correspondant à l'objet CategoryRessource passé en paramètre</returns>
         public Category CategoryRessourceToCategory(CategoryRessource categoryRessource)
         {
@@ -107,7 +107,7 @@ namespace StiveBack.Services
         /// <summary>
         /// Transforme un objet Category en objet CategoryRessource
         /// </summary>
-        /// <param name="category"></param>
+        /// <param name="category">Objet Category à transformer en objet CategoryRessource</param>
         /// <returns>Objet CategoryRessource correspondant à l'objet Category passé en paramètre</returns>
         public CategoryRessource CategoryToCategoryRessource(Category category)
         {

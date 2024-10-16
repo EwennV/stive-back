@@ -21,14 +21,14 @@ namespace StiveBack.Models
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
         public List<ProductCategory> ProductCategorie { get; set; }
-        public List<OrderProduct> OrderProduct { get; set; }
-        public List<PurchaseOrderProduct> PurchaseOrderProduct { get; set; }
+        //public List<OrderProduct> OrderProduct { get; set; }
+        //public List<PurchaseOrderProduct> PurchaseOrderProduct { get; set; }
 
         public Product()
         {
             ProductCategorie = new List<ProductCategory>();
-            OrderProduct = new List<OrderProduct>();
-            PurchaseOrderProduct = new List<PurchaseOrderProduct>();
+            //OrderProduct = new List<OrderProduct>();
+            //PurchaseOrderProduct = new List<PurchaseOrderProduct>();
         }
     }
 }

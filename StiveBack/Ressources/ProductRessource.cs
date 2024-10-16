@@ -18,21 +18,24 @@ namespace StiveBack.Ressources
         public string House { get; set; }
         public string ImageName { get; set; }
         public bool AutoProvisioning { get; set; }
-        public List<int> ProductCategories { get; set; }
-        public List<int> OrderProducts { get; set; }
-        public List<int> PurchaseOrderProducts { get; set; }
+        public SupplierRessource Supplier { get; set; }
+        public int SupplierId { get; set; }
+
+        public List<ProductCategory> ProductCategories { get; set; }
+        //public List<OrderProduct> OrderProducts { get; set; }
+        //public List<PurchaseOrderProduct> PurchaseOrderProducts { get; set; }
 
         public ProductRessource()
         {
-            ProductCategories = new List<int>();
-            OrderProducts = new List<int>();
-            PurchaseOrderProducts = new List<int>();
+            ProductCategories = new List<ProductCategory>();
+            //OrderProducts = new List<OrderProduct>();
+            //PurchaseOrderProducts = new List<PurchaseOrderProduct>();
         }
-        public ProductRessource(List<int> productCategories, List<int> orderProducts, List<int> purchaseOrderProducts) : this()
+        public ProductRessource(List<ProductCategory> productCategories, List<OrderProduct> orderProducts, List<PurchaseOrderProduct> purchaseOrderProducts) : this()
         {
             ProductCategories = productCategories;
-            OrderProducts = orderProducts;
-            PurchaseOrderProducts = purchaseOrderProducts;
+            //OrderProducts = orderProducts;
+            //PurchaseOrderProducts = purchaseOrderProducts;
         }
     }
 }
