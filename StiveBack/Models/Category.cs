@@ -7,14 +7,9 @@ namespace StiveBack.Models
         public string Name { get; set; }
         public int? CategoryParentId { get; set; }
         public Category? CategoryParent { get; set; }
-        //public List<Product> Products { get; set; }
-        public Category()
+        public Category() { }
+        public Category(Category? categoryParent)
         {
-            //Products = new List<Product>();
-        }
-        public Category(List<Product> products, Category? categoryParent)
-        {
-            //Products = products;
             CategoryParent = categoryParent;
         }
     }

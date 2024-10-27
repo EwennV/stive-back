@@ -49,14 +49,14 @@ namespace StiveBack.Services
         /// </summary>
         /// <param name="categoryRessource">Objet de type CategoryRessource à ajouter à la base de données</param>
         /// <returns>Objet CategoryRessource de la catégorie ajoutée en base de données</returns>
-        public CategoryRessource Add(CategoryRessource categoryRessource)
+        public CategoryRessource Add(CategorySaveRessource categorySaveRessource)
         {
-            var category = CategoryRessourceToCategory(categoryRessource);
+            Category category = CategorySaveRessourceToCategory(categorySaveRessource);
 
             _database.categories.Add(category);
             _database.SaveChanges();
 
-            return categoryRessource;
+            return CategoryToCategoryRessource(category);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace StiveBack.Services
         /// <param name="id">Identifiant de la catégorie à mettre à jour</param>
         /// <param name="newCategoryRessource">Objet CategoryRessource contenant les informations mises à jour</param>
         /// <returns>Objet CategoryRessource de la catégorie mise à jour dans la base de données</returns>
-        public CategoryUpdateRessource Update(int id, CategoryUpdateRessource newCategoryRessource)
+        public CategorySaveRessource Update(int id, CategorySaveRessource newCategoryRessource)
         {
             Category? category = _database.categories.FirstOrDefault(c => c.Id == id);
 
@@ -74,8 +74,10 @@ namespace StiveBack.Services
                 throw new Exception("Category not found");
             }
 
+            int? categParentIdValue = newCategoryRessource.CategoryParentId == 0 ? null : newCategoryRessource.CategoryParentId;
+
             category.Name = newCategoryRessource.Name ?? category.Name;
-            category.CategoryParentId = newCategoryRessource.CategoryRessourceParentId ?? category.CategoryParentId;
+            category.CategoryParentId = categParentIdValue;
             
             _database.categories.Update(category);
             _database.SaveChanges();
@@ -103,15 +105,17 @@ namespace StiveBack.Services
         /// <summary>
         /// Transforme un objet CategoryRessource en objet Category
         /// </summary>
-        /// <param name="categoryRessource">Objet de typeCategoryRessource à trnasformer en objet de type Category</param>
-        /// <returns>Objet Category correspondant à l'objet CategoryRessource passé en paramètre</returns>
-        public Category CategoryRessourceToCategory(CategoryRessource categoryRessource)
+        /// <param name="categorySaveRessource">Objet de type CategorySaveRessource à transformer en objet de type Category</param>
+        /// <returns>Objet Category correspondant à l'objet CategorySaveRessource passé en paramètre</returns>
+        public Category CategorySaveRessourceToCategory(CategorySaveRessource categorySaveRessource)
         {
-            var category = new Category
+            Category category = new Category
             {
-                Name = categoryRessource.Name,
-                CategoryParentId = categoryRessource.CategoryRessourceParentId,
+                Name = categorySaveRessource.Name,
+                CategoryParentId = categorySaveRessource.CategoryParentId,
             };
+
+            category.CategoryParentId = category.CategoryParentId == 0 ? null : category.CategoryParentId;
 
             return category;
         }
@@ -123,12 +127,22 @@ namespace StiveBack.Services
         /// <returns>Objet CategoryRessource correspondant à l'objet Category passé en paramètre</returns>
         public CategoryRessource CategoryToCategoryRessource(Category category)
         {
-            var categoryRessource = new CategoryRessource
+            CategoryRessource categoryRessource = new CategoryRessource
             {
                 Id = category.Id,
                 Name = category.Name,
-                CategoryRessourceParentId = category.CategoryParentId
             };
+
+            // Récupère l'objet category correspondant à la catégorie parente
+            Category parentCategory = _database.categories.FirstOrDefault(parentCategory => parentCategory.Id == category.CategoryParentId);
+            if (parentCategory == null)
+            {
+                categoryRessource.CategoryParent = null;
+            }
+            else
+            {
+                categoryRessource.CategoryParent = CategoryToCategoryRessource(parentCategory);
+            }
 
             return categoryRessource;
         }
