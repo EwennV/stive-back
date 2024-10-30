@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StiveBack.Ressources;
+
 using StiveBack.Services;
 
 namespace StiveBack.Controllers
@@ -49,6 +50,5 @@ namespace StiveBack.Controllers
             _productService.Delete(ProductRessource);
             return Ok();
         }
-
     }
 }

@@ -22,7 +22,7 @@ namespace StiveBack.Services
         /// <returns>Objet CategoryRessource correspondant à l'id passé en paramètre</returns>
         public CategoryRessource Select(int id)
         {
-            Category category = _database.categories.FirstOrDefault(c => c.Id == id);
+            Category? category = _database.categories.FirstOrDefault(c => c.Id == id);
             CategoryRessource categoryRessource = CategoryToCategoryRessource(category);
 
             return categoryRessource;
@@ -65,11 +65,17 @@ namespace StiveBack.Services
         /// <param name="id">Identifiant de la catégorie à mettre à jour</param>
         /// <param name="newCategoryRessource">Objet CategoryRessource contenant les informations mises à jour</param>
         /// <returns>Objet CategoryRessource de la catégorie mise à jour dans la base de données</returns>
-        public CategoryRessource Update(int id, CategoryRessource newCategoryRessource)
+        public CategoryUpdateRessource Update(int id, CategoryUpdateRessource newCategoryRessource)
         {
-            Category category = _database.categories.FirstOrDefault(c => c.Id == id);
-            category.Name = newCategoryRessource.Name;
-            category.CategoryParentId = newCategoryRessource.CategoryRessourceParentId;
+            Category? category = _database.categories.FirstOrDefault(c => c.Id == id);
+
+            if (category == null)
+            {
+                throw new Exception("Category not found");
+            }
+
+            category.Name = newCategoryRessource.Name ?? category.Name;
+            category.CategoryParentId = newCategoryRessource.CategoryRessourceParentId ?? category.CategoryParentId;
             
             _database.categories.Update(category);
             _database.SaveChanges();
@@ -83,7 +89,13 @@ namespace StiveBack.Services
         /// <param name="id">Identifiant de la catégorie à supprimer dans la base de données</param>
         public void Delete(int id)
         {
-            Category category = _database.categories.FirstOrDefault(c => c.Id == id);
+            Category? category = _database.categories.FirstOrDefault(c => c.Id == id);
+
+            if (category == null)
+            {
+                throw new Exception("Category not found");
+            }
+
             _database.categories.Remove(category);
             _database.SaveChanges();
         }
@@ -113,6 +125,7 @@ namespace StiveBack.Services
         {
             var categoryRessource = new CategoryRessource
             {
+                Id = category.Id,
                 Name = category.Name,
                 CategoryRessourceParentId = category.CategoryParentId
             };

@@ -71,7 +71,6 @@ namespace StiveBack.Services
         public ProductRessource Add(ProductSaveRessource productSaveRessource)
         {
             Product product = ProductSaveRessourceToProduct(productSaveRessource);
-
             _database.products.Add(product);
             _database.SaveChanges();
 
@@ -128,6 +127,7 @@ namespace StiveBack.Services
         public void Delete(int id)
         {
             Product product = _database.products.FirstOrDefault(p => p.Id == id);
+          
             _database.products.Remove(product);
             _database.SaveChanges();
         }
