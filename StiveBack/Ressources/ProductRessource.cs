@@ -19,23 +19,15 @@ namespace StiveBack.Ressources
         public string ImageName { get; set; }
         public bool AutoProvisioning { get; set; }
         public SupplierRessource Supplier { get; set; }
-        public int SupplierId { get; set; }
-
-        public List<ProductCategory> ProductCategories { get; set; }
-        //public List<OrderProduct> OrderProducts { get; set; }
-        //public List<PurchaseOrderProduct> PurchaseOrderProducts { get; set; }
+        public List<CategoryRessource>? ProductCategories { get; set; }
 
         public ProductRessource()
         {
-            ProductCategories = new List<ProductCategory>();
-            //OrderProducts = new List<OrderProduct>();
-            //PurchaseOrderProducts = new List<PurchaseOrderProduct>();
+            ProductCategories = new List<CategoryRessource>();
         }
-        public ProductRessource(List<ProductCategory> productCategories, List<OrderProduct> orderProducts, List<PurchaseOrderProduct> purchaseOrderProducts) : this()
+        public ProductRessource(List<CategoryRessource> categories)
         {
-            ProductCategories = productCategories;
-            //OrderProducts = orderProducts;
-            //PurchaseOrderProducts = purchaseOrderProducts;
+            ProductCategories = categories;
         }
     }
 }
