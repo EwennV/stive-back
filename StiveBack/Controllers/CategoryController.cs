@@ -33,6 +33,7 @@ namespace StiveBack.Controllers
         public IActionResult AddCategory(CategorySaveRessource CategorySaveRessource)
         {
             var category = _categoryService.Add(CategorySaveRessource);
+
             return Ok(category);
         }
 

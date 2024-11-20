@@ -10,6 +10,10 @@ namespace StiveBack.Models
         public Category() { }
         public Category(Category? categoryParent)
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> e81f41d8d62e39f78e6a2400ff47e50b401fb2df
             CategoryParent = categoryParent;
         }
     }
