@@ -12,8 +12,8 @@ using StiveBack.Database;
 namespace StiveBack.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20241030133343_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20241120091203_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

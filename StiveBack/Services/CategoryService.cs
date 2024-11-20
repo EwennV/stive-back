@@ -64,13 +64,7 @@ namespace StiveBack.Services
         /// <param name="id">Identifiant de la catégorie à mettre à jour</param>
         /// <param name="newCategoryRessource">Objet CategoryRessource contenant les informations mises à jour</param>
         /// <returns>Objet CategoryRessource de la catégorie mise à jour dans la base de données</returns>
-<<<<<<< HEAD
         public CategorySaveRessource Update(int id, CategorySaveRessource newCategoryRessource)
-=======
-
-        public CategorySaveRessource Update(int id, CategorySaveRessource newCategoryRessource)
-
->>>>>>> e81f41d8d62e39f78e6a2400ff47e50b401fb2df
         {
             Category? category = _database.categories.FirstOrDefault(c => c.Id == id);
 
@@ -83,10 +77,6 @@ namespace StiveBack.Services
 
             category.Name = newCategoryRessource.Name ?? category.Name;
             category.CategoryParentId = categParentIdValue;
-<<<<<<< HEAD
-=======
-
->>>>>>> e81f41d8d62e39f78e6a2400ff47e50b401fb2df
             
             _database.categories.Update(category);
             _database.SaveChanges();
