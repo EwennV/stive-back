@@ -10,6 +10,7 @@ namespace StiveBack.Models
         public Category() { }
         public Category(Category? categoryParent)
         {
+
             CategoryParent = categoryParent;
         }
     }

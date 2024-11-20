@@ -30,14 +30,18 @@ namespace StiveBack.Controllers
         }
 
         [HttpPost]
+
         public IActionResult AddCategory(CategorySaveRessource CategorySaveRessource)
         {
             var category = _categoryService.Add(CategorySaveRessource);
+
             return Ok(category);
         }
 
         [HttpPut]
+
         public IActionResult UpdateCategory(int CategoryId, CategorySaveRessource CategoryRessource)
+
         {
             var category = _categoryService.Update(CategoryId, CategoryRessource);
             return Ok(category);
