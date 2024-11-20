@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StiveBack.Models;
 using StiveBack.Ressources;
 
 using StiveBack.Services;
@@ -33,14 +34,36 @@ namespace StiveBack.Controllers
         [HttpPost]
         public IActionResult AddProduct(ProductSaveRessource ProductSaveRessource)
         {
-            var product = _productService.Add(ProductSaveRessource);
+            ProductRessource? product;
+            try
+            {
+                product = _productService.Add(ProductSaveRessource);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Message = ex.Message
+                });
+            }
             return Ok(product);
         }
 
         [HttpPut]
         public IActionResult UpdateProduct(int ProductId, ProductSaveRessource ProductSaveRessource)
         {
-            var product = _productService.Update(ProductId, ProductSaveRessource);
+            ProductRessource product;
+            try
+            {
+                product = _productService.Update(ProductId, ProductSaveRessource);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Message = ex.Message
+                });
+            }
             return Ok(product);
         }
 

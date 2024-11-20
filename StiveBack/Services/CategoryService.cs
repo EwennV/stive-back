@@ -74,9 +74,11 @@ namespace StiveBack.Services
             }
 
             int? categParentIdValue = newCategoryRessource.CategoryParentId == 0 ? null : newCategoryRessource.CategoryParentId;
+            newCategoryRessource.CategoryParentId = categParentIdValue;
 
             category.Name = newCategoryRessource.Name ?? category.Name;
             category.CategoryParentId = categParentIdValue;
+
             
             _database.categories.Update(category);
             _database.SaveChanges();
@@ -137,14 +139,21 @@ namespace StiveBack.Services
             };
 
             // Récupère l'objet category correspondant à la catégorie parente
-            Category parentCategory = _database.categories.FirstOrDefault(parentCategory => parentCategory.Id == category.CategoryParentId);
-            if (parentCategory == null)
+            if (category.CategoryParentId == 0)
             {
                 categoryRessource.CategoryParent = null;
             }
             else
             {
-                categoryRessource.CategoryParent = CategoryToCategoryRessource(parentCategory);
+                Category parentCategory = _database.categories.FirstOrDefault(parentCategory => parentCategory.Id == category.CategoryParentId);
+                if (parentCategory == null)
+                {
+                    categoryRessource.CategoryParent = null;
+                }
+                else
+                {
+                    categoryRessource.CategoryParent = CategoryToCategoryRessource(parentCategory);
+                }
             }
 
             return categoryRessource;

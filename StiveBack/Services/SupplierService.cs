@@ -65,7 +65,7 @@ namespace StiveBack.Services
         /// <param name="id">Identifiant du supplier à mettre à jour</param>
         /// <param name="newCategoryRessource">Objet SupplierRessource contenant les informations mises à jour</param>
         /// <returns>Objet SupplierRessource du Supplier mis à jour dans la base de données</returns>
-        public SupplierUpdateRessource Update(int id, SupplierUpdateRessource newSupplierRessource)
+        public SupplierRessource Update(int id, SupplierUpdateRessource newSupplierRessource)
         {
             Supplier? supplier = _database.suppliers.FirstOrDefault(s => s.Id == id);
 
@@ -85,7 +85,7 @@ namespace StiveBack.Services
             _database.suppliers.Update(supplier);
             _database.SaveChanges();
 
-            return newSupplierRessource;
+            return SupplierToSupplierRessource(supplier);
         }
 
         /// <summary>

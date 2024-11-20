@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using StiveBack.Database;
 using StiveBack.Models;
@@ -92,6 +93,18 @@ namespace StiveBack.Services
                 return null;
             }
 
+            // Si pas de catégorie
+            if (productSaveRessource.CategoryIds.Any() == false)
+            {
+                throw new ArgumentException("Un produit doit avoir au moins une catégorie valide.");
+            }
+
+            // Si pas de supplier
+            if (productSaveRessource.SupplierId == null || productSaveRessource.SupplierId == 0)
+            {
+                throw new ArgumentException("Un produit doit avoir un fournisseur valide.");
+            }
+
             product.Name = productSaveRessource.Name;
             product.Reference = productSaveRessource.Reference;
             product.SellPrice = productSaveRessource.SellPrice;
@@ -145,7 +158,19 @@ namespace StiveBack.Services
             {
                 return null;
             }
-            
+
+            // Si pas de catégorie
+            if (productSaveRessource.CategoryIds.Any() == false)
+            {
+                throw new ArgumentException("Un produit doit avoir au moins une catégorie valide.");
+            }
+
+            // Si pas de supplier
+            if (productSaveRessource.SupplierId == null || productSaveRessource.SupplierId == 0)
+            {
+                throw new ArgumentException("Un produit doit avoir un fournisseur valide.");
+            }
+
             var product = new Product
             {
                 Name = productSaveRessource.Name,
