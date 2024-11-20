@@ -23,9 +23,8 @@ namespace StiveBack.Services
         public CategoryRessource Select(int id)
         {
             Category? category = _database.categories.FirstOrDefault(c => c.Id == id);
-            CategoryRessource categoryRessource = CategoryToCategoryRessource(category);
 
-            return categoryRessource;
+            return CategoryToCategoryRessource(category);
         }
 
         /// <summary>
@@ -112,10 +111,8 @@ namespace StiveBack.Services
             Category category = new Category
             {
                 Name = categorySaveRessource.Name,
-                CategoryParentId = categorySaveRessource.CategoryParentId,
+                CategoryParentId = categorySaveRessource.CategoryParentId == 0 ? null : categorySaveRessource.CategoryParentId,
             };
-
-            category.CategoryParentId = category.CategoryParentId == 0 ? null : category.CategoryParentId;
 
             return category;
         }
@@ -127,6 +124,12 @@ namespace StiveBack.Services
         /// <returns>Objet CategoryRessource correspondant à l'objet Category passé en paramètre</returns>
         public CategoryRessource CategoryToCategoryRessource(Category category)
         {
+            
+            if (category == null)
+            {
+                return null;
+            }
+            
             CategoryRessource categoryRessource = new CategoryRessource
             {
                 Id = category.Id,

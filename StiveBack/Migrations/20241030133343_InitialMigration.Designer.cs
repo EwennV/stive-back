@@ -12,7 +12,7 @@ using StiveBack.Database;
 namespace StiveBack.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20240919074647_InitialMigration")]
+    [Migration("20241030133343_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -37,6 +37,7 @@ namespace StiveBack.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -101,16 +102,26 @@ namespace StiveBack.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("AutoProvisioning")
+                        .HasColumnType("bit");
+
                     b.Property<string>("BottlingDate")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("House")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MinThreshold")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("PurchasePrice")
@@ -123,6 +134,7 @@ namespace StiveBack.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reference")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ReorderQuantity")
@@ -134,7 +146,12 @@ namespace StiveBack.Migrations
                     b.Property<float>("SellTva")
                         .HasColumnType("real");
 
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("products");
                 });
@@ -174,6 +191,7 @@ namespace StiveBack.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -213,6 +231,7 @@ namespace StiveBack.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -238,12 +257,14 @@ namespace StiveBack.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Siret")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -292,15 +313,19 @@ namespace StiveBack.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
@@ -334,13 +359,13 @@ namespace StiveBack.Migrations
             modelBuilder.Entity("StiveBack.Models.OrderProduct", b =>
                 {
                     b.HasOne("StiveBack.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderProduct")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StiveBack.Models.Product", "Product")
-                        .WithMany("OrderProduct")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -348,6 +373,15 @@ namespace StiveBack.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("StiveBack.Models.Product", b =>
+                {
+                    b.HasOne("StiveBack.Models.Supplier", null)
+                        .WithMany("Product")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StiveBack.Models.ProductCategory", b =>
@@ -359,7 +393,7 @@ namespace StiveBack.Migrations
                         .IsRequired();
 
                     b.HasOne("StiveBack.Models.Product", "Product")
-                        .WithMany("ProductCategorie")
+                        .WithMany("ProductCategories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -372,13 +406,13 @@ namespace StiveBack.Migrations
             modelBuilder.Entity("StiveBack.Models.PurchaseOrderProduct", b =>
                 {
                     b.HasOne("StiveBack.Models.Product", "Product")
-                        .WithMany("PurchaseOrderProduct")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StiveBack.Models.PurchaseOrder", "PurchaseOrder")
-                        .WithMany()
+                        .WithMany("PurchaseOrderProduct")
                         .HasForeignKey("PurchaseOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -407,18 +441,29 @@ namespace StiveBack.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StiveBack.Models.Product", b =>
+            modelBuilder.Entity("StiveBack.Models.Order", b =>
                 {
                     b.Navigation("OrderProduct");
+                });
 
-                    b.Navigation("ProductCategorie");
+            modelBuilder.Entity("StiveBack.Models.Product", b =>
+                {
+                    b.Navigation("ProductCategories");
+                });
 
+            modelBuilder.Entity("StiveBack.Models.PurchaseOrder", b =>
+                {
                     b.Navigation("PurchaseOrderProduct");
                 });
 
             modelBuilder.Entity("StiveBack.Models.Role", b =>
                 {
                     b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("StiveBack.Models.Supplier", b =>
+                {
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("User", b =>

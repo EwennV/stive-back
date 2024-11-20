@@ -19,16 +19,16 @@ namespace StiveBack.Models
         public string ImageName { get; set; }
         public bool AutoProvisioning { get; set; }
         public int SupplierId { get; set; }
-        public Supplier Supplier { get; set; }
-        public List<ProductCategory> ProductCategorie { get; set; }
-        //public List<OrderProduct> OrderProduct { get; set; }
-        //public List<PurchaseOrderProduct> PurchaseOrderProduct { get; set; }
+        public List<ProductCategory>? ProductCategories { get; set; } = new List<ProductCategory>();
 
         public Product()
         {
-            ProductCategorie = new List<ProductCategory>();
-            //OrderProduct = new List<OrderProduct>();
-            //PurchaseOrderProduct = new List<PurchaseOrderProduct>();
+            ProductCategories = new List<ProductCategory>();
+        }
+
+        public Product(List<ProductCategory> productCategories)
+        {
+            ProductCategories = productCategories;
         }
     }
 }

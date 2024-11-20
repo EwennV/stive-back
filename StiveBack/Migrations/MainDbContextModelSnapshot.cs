@@ -106,9 +106,6 @@ namespace StiveBack.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("House")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -150,8 +147,6 @@ namespace StiveBack.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("SupplierId");
 
@@ -379,10 +374,6 @@ namespace StiveBack.Migrations
 
             modelBuilder.Entity("StiveBack.Models.Product", b =>
                 {
-                    b.HasOne("StiveBack.Models.Category", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("StiveBack.Models.Supplier", null)
                         .WithMany("Product")
                         .HasForeignKey("SupplierId")
@@ -399,7 +390,7 @@ namespace StiveBack.Migrations
                         .IsRequired();
 
                     b.HasOne("StiveBack.Models.Product", "Product")
-                        .WithMany("ProductCategorie")
+                        .WithMany("ProductCategories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -447,11 +438,6 @@ namespace StiveBack.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StiveBack.Models.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("StiveBack.Models.Order", b =>
                 {
                     b.Navigation("OrderProduct");
@@ -459,7 +445,7 @@ namespace StiveBack.Migrations
 
             modelBuilder.Entity("StiveBack.Models.Product", b =>
                 {
-                    b.Navigation("ProductCategorie");
+                    b.Navigation("ProductCategories");
                 });
 
             modelBuilder.Entity("StiveBack.Models.PurchaseOrder", b =>

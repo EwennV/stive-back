@@ -3,7 +3,7 @@
     public class CategorySaveRessource
     {
         public string Name { get; set; }
-        public int CategoryParentId { get; set; }
+        public int? CategoryParentId { get; set; }
 
         public CategorySaveRessource() { }
     }

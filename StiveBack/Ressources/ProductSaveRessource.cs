@@ -1,9 +1,6 @@
-﻿using StiveBack.Models;
-using StiveBack.Ressources.Core;
-
-namespace StiveBack.Ressources
+﻿namespace StiveBack.Ressources
 {
-    public class ProductRessource: EntityRessource
+    public class ProductSaveRessource
     {
         public string Name { get; set; }
         public string Reference { get; set; }
@@ -18,16 +15,16 @@ namespace StiveBack.Ressources
         public string House { get; set; }
         public string ImageName { get; set; }
         public bool AutoProvisioning { get; set; }
-        public SupplierRessource Supplier { get; set; }
-        public List<CategoryRessource>? Categories { get; set; }
+        public int SupplierId { get; set; }
+        public List<int>? CategoryIds { get; set; }
 
-        public ProductRessource()
+        public ProductSaveRessource()
         {
-            Categories = new List<CategoryRessource>();
+            CategoryIds = new List<int>();
         }
-        public ProductRessource(List<CategoryRessource> categories)
+        public ProductSaveRessource(List<int> categoryIds) : this()
         {
-            Categories = categories;
+            CategoryIds = categoryIds;
         }
     }
 }

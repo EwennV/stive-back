@@ -15,8 +15,11 @@ builder.Services.AddDbContext<MainDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
 });
 
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<SupplierService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
