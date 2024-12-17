@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StiveBack.Ressources;
 using StiveBack.Services;
 
@@ -30,6 +31,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddCategory(CategorySaveRessource CategorySaveRessource)
         {
             var category = _categoryService.Add(CategorySaveRessource);
@@ -38,6 +40,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateCategory(int CategoryId, CategorySaveRessource CategoryRessource)
         {
             var category = _categoryService.Update(CategoryId, CategoryRessource);
@@ -45,6 +48,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteCategory(int CategoryRessourceId)
         {
             _categoryService.Delete(CategoryRessourceId);

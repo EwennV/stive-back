@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StiveBack.Ressources;
 using StiveBack.Services;
 
@@ -30,6 +31,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddSupplier(SupplierUpdateRessource SupplierUpdateRessource)
         {
             var supplier = _supplierService.Add(SupplierUpdateRessource);
@@ -37,6 +39,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateSupplier(int SupplierId, SupplierUpdateRessource SupplierRessource)
         {
             var supplier = _supplierService.Update(SupplierId, SupplierRessource);
@@ -44,6 +47,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteSupplier(int SupplierRessourceId)
         {
             _supplierService.Delete(SupplierRessourceId);

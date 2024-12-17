@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using StiveBack.Ressources;
 using StiveBack.Services;
@@ -17,12 +18,14 @@ namespace StiveBack.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult<List<UserRessource>> GetAll()
         {
             return _userService.SelectAll();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<UserRessource> Get(int id)
         {
             var user = _userService.Select(id);
@@ -36,6 +39,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult<UserRessource> AddUser([FromBody] UserSaveRessource user)
         {
             var userRessource = _userService.Add(user);
@@ -44,6 +48,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<UserRessource> UpdateUser(int id, [FromBody] UserUpdateRessource user)
         {
             try
@@ -57,6 +62,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteUser(int id)
         {
             try

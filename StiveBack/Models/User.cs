@@ -12,6 +12,7 @@ public class User: Entity
         public string? PostalCode { get; set; }
         public string? City { get; set; }
         public string Password { get; set; }
+        public bool IsAdmin { get; set; }
         public List<UserRole> UserRole { get; set; }
         public User()
         {
