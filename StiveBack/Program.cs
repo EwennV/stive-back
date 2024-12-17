@@ -27,6 +27,7 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero
     };
 
+    // Mise en forme des réponses liées à l'authentification
     options.Events = new JwtBearerEvents
     {
         OnChallenge = context =>
@@ -93,8 +94,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
