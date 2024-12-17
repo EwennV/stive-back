@@ -13,6 +13,7 @@ namespace StiveBack.Ressources
         public string? Address2 { get; set; }
         public string? PostalCode { get; set; }
         public string? City { get; set; }
+        public bool? IsAdmin { get; set; }
         public string? Password { get; set; }
         public List<int> RoleIds { get; set; }
 

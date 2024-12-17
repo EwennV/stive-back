@@ -81,6 +81,7 @@ namespace StiveBack.Services
             user.Address2 = userSaveRessource.Address2 ?? user.Address2;
             user.PostalCode = userSaveRessource.PostalCode ?? user.PostalCode;
             user.City = userSaveRessource.City ?? user.City;
+            user.IsAdmin = userSaveRessource.IsAdmin ?? user.IsAdmin;
             user.Password = userSaveRessource.Password != null ? _passwordHasher.HashPassword(user, userSaveRessource.Password) : user.Password;
             user.UserRole = userSaveRessource.RoleIds.Select(roleId => new UserRole
             {
@@ -120,6 +121,7 @@ namespace StiveBack.Services
                 Address2 = userSaveRessource.Address2,
                 PostalCode = userSaveRessource.PostalCode,
                 City = userSaveRessource.City,
+                IsAdmin = userSaveRessource.IsAdmin ?? false,
                 UserRole = userSaveRessource.RoleIds.Select(roleId => new UserRole
                 {
                     RoleId = roleId
@@ -143,6 +145,7 @@ namespace StiveBack.Services
                 Address2 = user.Address2,
                 PostalCode = user.PostalCode,
                 City = user.City,
+                IsAdmin = user.IsAdmin,
                 Roles = user.UserRole
                 .Select(c => new RoleRessource { Id = c.Role.Id, Name = c.Role.Name })
                 .ToList()

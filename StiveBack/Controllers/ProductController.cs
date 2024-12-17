@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StiveBack.Models;
 using StiveBack.Ressources;
 
@@ -32,6 +33,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddProduct(ProductSaveRessource ProductSaveRessource)
         {
             ProductRessource? product;
@@ -50,6 +52,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateProduct(int ProductId, ProductSaveRessource ProductSaveRessource)
         {
             ProductRessource product;
@@ -68,6 +71,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteProduct(int ProductRessource)
         {
             _productService.Delete(ProductRessource);
