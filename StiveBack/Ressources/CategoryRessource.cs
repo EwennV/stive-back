@@ -5,18 +5,14 @@ namespace StiveBack.Ressources
     public class CategoryRessource: EntityRessource
     {
         public string Name { get; set; }
-        public int? CategoryRessourceParentId { get; set; }
-        public CategoryRessource? CategoryRessourceParent { get; set; }
-        public List<ProductRessource> ProductRessources { get; set; }
+        public CategoryRessource? CategoryParent { get; set; }
 
-        public CategoryRessource()
+        public CategoryRessource() { }
+
+        public CategoryRessource(CategoryRessource categoryParent)
         {
-            ProductRessources = new List<ProductRessource>();
+            CategoryParent = categoryParent;
         }
-        public CategoryRessource(CategoryRessource? categoryRessource, List<ProductRessource> productRessources)
-        {
-            CategoryRessourceParent = categoryRessource;
-            ProductRessources = productRessources;
-        }
+
     }
 }
