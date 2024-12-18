@@ -21,13 +21,13 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-        ValidateIssuer = false, // Si pas d'issuer spécifique
-        ValidateAudience = false, // Si pas d'audience spécifique
+        ValidateIssuer = false, // Si pas d'issuer spï¿½cifique
+        ValidateAudience = false, // Si pas d'audience spï¿½cifique
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero
     };
 
-    // Mise en forme des réponses liées à l'authentification
+    // Mise en forme des rï¿½ponses liï¿½es ï¿½ l'authentification
     options.Events = new JwtBearerEvents
     {
         OnChallenge = context =>
@@ -85,6 +85,14 @@ var app = builder.Build();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+// Effectue les migrations 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MainDbContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
