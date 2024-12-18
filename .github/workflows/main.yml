@@ -1,0 +1,13 @@
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  send-webhook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Webhook
+        run: "curl --location --request POST 'https://sewv02.ewenn-vallois.fr/portainer/api/stacks/webhooks/58c6e2bf-49a1-44a8-8056-eafeef2b9557'"
+            
