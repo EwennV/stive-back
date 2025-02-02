@@ -9,14 +9,16 @@ namespace StiveBack.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     public class OrderController: ControllerBase
     {
         private OrderService _orderService;
+        private UserService _userService;
 
-        public OrderController(OrderService orderService)
+        public OrderController(OrderService orderService, UserService userService)
         {
             _orderService = orderService;
+            _userService = userService;
         }
 
         [HttpGet("{id}")]
@@ -45,15 +47,16 @@ namespace StiveBack.Controllers
                 orders = _orderService.GetByUser(User);
             }
 
-            return Ok(orders);
+            return Ok();
         }
 
         [HttpPost]
         [Authorize]
         public IActionResult Create(OrderSaveRessource orderSaveRessource)
         {
+            var user = _userService.GetUserFromSecurityUserAsync(User);
 
-            return Ok(User);
+            return Ok(new {user = user});
         }
     }
 }
