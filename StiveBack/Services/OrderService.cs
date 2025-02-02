@@ -1,6 +1,7 @@
 ﻿using StiveBack.Database;
 using StiveBack.Models;
 using StiveBack.Ressources;
+using System.Security.Claims;
 
 namespace StiveBack.Services
 {
@@ -49,6 +50,13 @@ namespace StiveBack.Services
             return OrderToOrderRessource(order);
         }
 
+        public List<OrderRessource> GetByUser(User user)
+        {
+            var orders = _database.orders.Where(order => order.User == user).Select(order => OrderToOrderRessource(order)).ToList();
+            
+            return orders;
+        }
+
 
         public void Delete(int id)
         {
@@ -82,6 +90,17 @@ namespace StiveBack.Services
             return order;
         }
 
+        private Order OrderSaveRessourceToOrder(OrderSaveRessource orderSaveRessource)
+        {
+            var order = new Order
+            {
+                Date = new DateTime(),
+                OrderProduct = orderSaveRessource.Products.Select(p => new OrderProduct {  ProductId = p.ProductId, Quantity = p.Quantity }).ToList(),
+            };
+
+            return order;
+        }
+
         public OrderRessource Update(int id, OrderRessource orderRessource)
         {
             var existingOrder = _database.orders.Find(id);
@@ -100,5 +119,9 @@ namespace StiveBack.Services
             return OrderToOrderRessource(existingOrder);
         }
 
+        internal List<OrderRessource> GetByUser(ClaimsPrincipal user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
