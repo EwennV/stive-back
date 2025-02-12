@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using StiveBack.Database;
 using StiveBack.Models;
 using StiveBack.Ressources;
-using System.Security.Claims;
 
 namespace StiveBack.Services
 {
@@ -154,25 +152,6 @@ namespace StiveBack.Services
             };
 
             return userRessource;
-        }
-
-        public User? GetUserFromSecurityUserAsync(ClaimsPrincipal securityUser)
-        {
-            var userEmail = securityUser.FindFirst(ClaimTypes.Email)?.Value;
-
-            if (string.IsNullOrEmpty(userEmail))
-            {
-                return null;
-            }
-
-            User? user = _database.users.FirstOrDefault(u => u.Email == userEmail);
-
-            if (user == null)
-            {
-                throw new Exception("User not found");
-            }
-
-            return user;
         }
     }
 }

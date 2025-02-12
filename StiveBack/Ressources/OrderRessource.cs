@@ -1,16 +1,15 @@
-﻿using StiveBack.Ressources.Core;
-
-namespace StiveBack.Ressources
+﻿namespace StiveBack.Ressources
 {
-    public class OrderRessource : EntityRessource
+    public class OrderRessource
     {
         public DateTime Date { get; set; }
         public int UserId { get; set; }
-        public List<OrderProductRessource> OrderProducts { get; set; }
+        public UserRessource UserRessource { get; set; }
 
-        public OrderRessource()
+        public OrderRessource() { }
+        public OrderRessource(UserRessource userRessource) 
         {
-            OrderProducts = new List<OrderProductRessource>();
+            UserRessource = userRessource;
         }
     }
 }
