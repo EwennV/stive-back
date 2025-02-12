@@ -41,7 +41,7 @@ namespace StiveBack.Migrations
 
                     b.HasIndex("CategoryParentId");
 
-                    b.ToTable("categories");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.Order", b =>
@@ -62,7 +62,7 @@ namespace StiveBack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.OrderProduct", b =>
@@ -88,7 +88,7 @@ namespace StiveBack.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("orderproducts");
+                    b.ToTable("orderproducts", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.Product", b =>
@@ -150,7 +150,7 @@ namespace StiveBack.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.ProductCategory", b =>
@@ -173,7 +173,7 @@ namespace StiveBack.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("productcategories");
+                    b.ToTable("productcategories", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.PurchaseOrder", b =>
@@ -193,7 +193,7 @@ namespace StiveBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("purchaseorders");
+                    b.ToTable("purchaseorders", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.PurchaseOrderProduct", b =>
@@ -216,7 +216,7 @@ namespace StiveBack.Migrations
 
                     b.HasIndex("PurchaseOrderId");
 
-                    b.ToTable("purchaseorderproducts");
+                    b.ToTable("purchaseorderproducts", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.Role", b =>
@@ -233,7 +233,7 @@ namespace StiveBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("roles");
+                    b.ToTable("roles", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.Supplier", b =>
@@ -265,7 +265,7 @@ namespace StiveBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("suppliers");
+                    b.ToTable("suppliers", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.UserRole", b =>
@@ -288,7 +288,7 @@ namespace StiveBack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("userRoles");
+                    b.ToTable("userRoles", (string)null);
                 });
 
             modelBuilder.Entity("User", b =>
@@ -332,7 +332,7 @@ namespace StiveBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("StiveBack.Models.Category", b =>

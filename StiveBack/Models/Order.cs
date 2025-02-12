@@ -8,9 +8,15 @@ namespace StiveBack.Models
         public int UserId { get; set; }
         public User User { get; set; }
         public List<OrderProduct> OrderProduct { get; set; }
+
         public Order()
         {
             OrderProduct = new List<OrderProduct>();
+        }
+
+        public Order(User? user)
+        {
+            User = user;
         }
 
     }

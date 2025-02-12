@@ -40,14 +40,9 @@ namespace StiveBack.Controllers
         {
             List<OrderRessource> orders;
 
-            if (User.IsInRole("Admin")) {
-                orders = _orderService.Get();
-            } else
-            {
-                orders = _orderService.GetByUser(User);
-            }
+            orders = _orderService.Get();
 
-            return Ok();
+            return Ok(orders);
         }
 
         [HttpPost]
@@ -56,7 +51,69 @@ namespace StiveBack.Controllers
         {
             var user = _userService.GetUserFromSecurityUserAsync(User);
 
-            return Ok(new {user = user});
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            if (!User.IsInRole("Admin"))
+            {
+                orderSaveRessource.UserId = user.Id;
+            }
+
+            OrderRessource order = _orderService.Add(orderSaveRessource);
+
+            return Ok(order);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public IActionResult Update(int id, [FromBody] OrderSaveRessource orderSaveRessource)
+        {
+            var user = _userService.GetUserFromSecurityUserAsync(User);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            OrderRessource order = _orderService.GetById(id);
+
+            if (order == null || (!User.IsInRole("Admin") && order.UserId != user.Id))
+            {
+                return NotFound();
+            }
+
+            if (!User.IsInRole("Admin"))
+            {
+                orderSaveRessource.UserId = user.Id;
+            }
+
+            order = _orderService.Modify(id, orderSaveRessource);
+
+            return Ok(order);
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public IActionResult Remove(int id)
+        {
+            var user = _userService.GetUserFromSecurityUserAsync(User);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            OrderRessource order = _orderService.GetById(id);
+
+            if (order == null || (!User.IsInRole("Admin") && order.UserId != user.Id)) {
+                return NotFound();
+            }
+
+            _orderService.Delete(id);
+
+            return Ok();
         }
     }
 }

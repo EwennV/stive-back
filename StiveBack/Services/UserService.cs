@@ -156,16 +156,16 @@ namespace StiveBack.Services
             return userRessource;
         }
 
-        public User GetUserFromSecurityUserAsync(ClaimsPrincipal securityUser)
+        public User? GetUserFromSecurityUserAsync(ClaimsPrincipal securityUser)
         {
-            var userId = securityUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userEmail = securityUser.FindFirst(ClaimTypes.Email)?.Value;
 
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(userEmail))
             {
-                throw new Exception("Truc");
+                return null;
             }
 
-            User? user = _database.users.FirstOrDefault(u => u.Id == Int32.Parse(userId));
+            User? user = _database.users.FirstOrDefault(u => u.Email == userEmail);
 
             if (user == null)
             {
