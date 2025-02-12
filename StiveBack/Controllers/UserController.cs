@@ -39,6 +39,7 @@ namespace StiveBack.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult<UserRessource> AddUser([FromBody] UserSaveRessource user)
         {
             var userRessource = _userService.Add(user);

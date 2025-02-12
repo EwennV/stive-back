@@ -1,7 +1,6 @@
 ﻿using StiveBack.Database;
 using StiveBack.Models;
 using StiveBack.Ressources;
-using System.Security.Claims;
 
 namespace StiveBack.Services
 {
@@ -20,9 +19,9 @@ namespace StiveBack.Services
             _userService = userService;
         }
 
-        public OrderRessource Add(OrderSaveRessource orderSaveRessource)
+        public OrderRessource Add(OrderRessource orderRessource)
         {
-            var order = OrderSaveRessourceToOrder(orderSaveRessource);
+            var order = OrderRessourceToOrder(orderRessource);
 
             _database.orders.Add(order);
             _database.SaveChanges();
@@ -50,29 +49,6 @@ namespace StiveBack.Services
             return OrderToOrderRessource(order);
         }
 
-        public List<OrderRessource> GetByUser(User user)
-        {
-            var orders = _database.orders.Where(order => order.User == user).Select(order => OrderToOrderRessource(order)).ToList();
-            
-            return orders;
-        }
-
-        public OrderRessource Modify(int id, OrderSaveRessource orderSaveRessource)
-        {
-            Order order = _database.orders.Find(id);
-
-            order.UserId = orderSaveRessource.UserId;
-            order.OrderProduct = orderSaveRessource.Products.Select(p => new OrderProduct
-            {
-                ProductId = p.ProductId,
-                Quantity = p.Quantity
-            }).ToList();
-
-            _database.SaveChanges();
-
-            return OrderToOrderRessource(order);
-        }
-
 
         public void Delete(int id)
         {
@@ -84,42 +60,45 @@ namespace StiveBack.Services
 
         private OrderRessource OrderToOrderRessource(Order order)
         {
-
-            List<OrderProduct> orderProducts = _database.orderproducts.Where(orderProduct => orderProduct.Order == order).ToList();
-
             var orderRessource = new OrderRessource
             {
-                Id = order.Id,
                 Date = order.Date,
                 UserId = order.UserId,
-                OrderProducts = orderProducts.Select(p => new OrderProductRessource
-                {
-                    ProductId = p.ProductId,
-                    Quantity = p.Quantity,
-                }).ToList()
+                UserRessource = _userService.UserToUserRessource(order.User)
             };
 
             return orderRessource;
         }
 
-        private Order OrderSaveRessourceToOrder(OrderSaveRessource orderSaveRessource)
+        private Order OrderRessourceToOrder(OrderRessource orderRessource)
         {
-
             var order = new Order
             {
-                Date = DateTime.Now,
-                UserId = orderSaveRessource.UserId,
-                OrderProduct = orderSaveRessource.Products.Select(p => new OrderProduct {
-                    ProductId = p.ProductId, Quantity = p.Quantity 
-                }).ToList(),
+                Date = orderRessource.Date,
+                UserId = orderRessource.UserId,
+                User = _database.users.Find(orderRessource.UserId)
             };
 
             return order;
         }
 
-        internal List<OrderRessource> GetByUser(ClaimsPrincipal user)
+        public OrderRessource Update(int id, OrderRessource orderRessource)
         {
-            throw new NotImplementedException();
+            var existingOrder = _database.orders.Find(id);
+
+            if (existingOrder == null)
+            {
+                return null;
+            }
+
+            existingOrder.Date = orderRessource.Date;
+            existingOrder.UserId = orderRessource.UserId;
+            existingOrder.User = _database.users.Find(orderRessource.UserId);
+
+            _database.SaveChanges();
+
+            return OrderToOrderRessource(existingOrder);
         }
+
     }
 }
